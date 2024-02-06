@@ -11,6 +11,8 @@
         return true;
     }
 
+
+
     if (isset($_POST['username']) && isset($_POST['password']) && validation()) {
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -41,6 +43,10 @@
         } else {
             echo "<p>Invalid username or password.</p>";
         }
+        
+        $cookie_name = "user";
+        $cookie_value = $username;
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
 
         mysqli_close($con);
     }
@@ -65,6 +71,7 @@
         <h2 class="nav-title"> My Page </h2>
           <div class="nav-links">
             <a href="login.php" class="btn"> Log In </a>
+            <a href="welcome.php" class="btn"> Home </a>
             <a href="gallery.php" class="btn"> Gallery </a>
             <a href="contacts.php" class="btn"> Contact Us </a>
           </div>
