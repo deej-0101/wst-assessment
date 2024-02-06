@@ -101,7 +101,8 @@
     <section class="navbar">
         <h2 class="nav-title"> My Page </h2>
           <div class="nav-links">
-            <a href="login.php" class="btn"> Home </a>
+            <a href="login.php" class="btn"> Login </a>
+            <a href="welcome.php" class="btn"> Home </a>
             <a href="gallery.php" class="btn"> Gallery </a>
             <a href="contacts.php" class="btn"> Contact Us </a>
           </div>

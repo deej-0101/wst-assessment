@@ -2,24 +2,23 @@
    // Start the session
    session_start();
 
-   // Check if user is logged in
-   if (!isset($_SESSION['username'])) {
-      header("Location: login.php");
-      exit;
-   }
-
    // Retrieve user information from session
-   $username = $_SESSION['username'];
+   if (isset($_SESSION['username'])) {
+       $username = $_SESSION['username'];
 
-   // Retrieve user data from the database
-   include('db.php');
-   $con = mysqli_connect("localhost", "root", "root", "login");
-   $sql = "SELECT * FROM user WHERE username = '$username'";
-   $result = mysqli_query($con, $sql);
-   $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-   $fname = $row['fname']; // assuming the column name for the first name is 'fname'
-   mysqli_close($con);
+       // Retrieve user data from the database
+       include('db.php');
+       $con = mysqli_connect("localhost", "root", "root", "login");
+       $sql = "SELECT * FROM user WHERE username = '$username'";
+       $result = mysqli_query($con, $sql);
+       $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+       $fname = $row['fname']; // assuming the column name for the first name is 'fname'
+       mysqli_close($con);
+   } else {
+       $fname = '';
+   }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -45,7 +44,13 @@
 
       <div class="welcomepage">
       <h1>Welcome, 
-        <?php echo $fname; ?>
+      <?php
+          if (!isset($fname) || empty($fname)) {
+              echo 'Guest';
+          } else {
+              echo $fname;
+          }
+          ?>
       </h1>
       <p>Not logged in? <a href="login.php">Login here.</a>.</p>
       </div>
